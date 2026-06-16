@@ -1,0 +1,15 @@
+All rights reserved.
+
+Copyright (c) 2026 Calmkept
+
+The contents of this repository (HTML, CSS, copy, brand assets) are the
+proprietary work of Calmkept and may not be copied, reproduced, or
+redistributed without express written permission.
+
+Self-hosted webfonts in `fonts/` are subject to their own upstream licenses:
+
+- Cormorant Garamond — SIL Open Font License 1.1
+- Inter — SIL Open Font License 1.1
+
+Both fonts are used under the terms of those licenses and remain the
+property of their respective authors.
