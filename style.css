@@ -50,7 +50,7 @@
   --sage-dark: #5F6F54;
   --charcoal: #1D1D1F;
   --charcoal-muted: rgba(29, 29, 31, 0.78);
-  --charcoal-quiet: rgba(29, 29, 31, 0.60);
+  --charcoal-quiet: rgba(29, 29, 31, 0.66);
   --sage-tint: rgba(122, 139, 108, 0.08);
   --sage-tint-hover: rgba(122, 139, 108, 0.14);
   --border-sage: rgba(122, 139, 108, 0.28);
@@ -199,7 +199,7 @@ a:focus-visible {
 
 .cta {
   display: inline-block;
-  background: var(--sage);
+  background: var(--sage-dark);
   color: var(--cream);
   font-family: var(--font-body);
   font-weight: 500;
@@ -214,7 +214,7 @@ a:focus-visible {
 
 .cta:hover,
 .cta:focus-visible {
-  background: var(--sage-dark);
+  background: #4B5943;
   color: var(--cream);
   border-bottom: none;
   transform: translateY(-1px);
@@ -528,4 +528,18 @@ section {
     background: #fff;
     color: #000;
   }
+}
+
+/* Skip link: hidden until focused by keyboard (2026-10-15) */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  background: var(--sage-dark);
+  color: var(--cream);
+  padding: 0.6rem 1rem;
+  z-index: 100;
+}
+.skip-link:focus {
+  top: 1rem;
 }
