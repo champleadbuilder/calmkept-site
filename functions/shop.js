@@ -1,6 +1,7 @@
 /**
  * /shop route — geo-aware redirect to shop
  * - US visitors → https://calmkept.etsy.com, with a small "not the right store?" link to Payhip
+ * - AU visitors → https://calmkept.etsy.com only (AU = Etsy-only rule; Payhip AU GST unconfirmed), no Payhip link
  * - Everyone else → https://payhip.com/Calmkept, with a small "not the right store?" link to Etsy
  * - Unknown country (cf-ipcountry missing or "XX"/"T1") → show both links, no auto-redirect
  * - Preserves utm_source parameter if present
@@ -55,8 +56,8 @@ export async function onRequest(context) {
     // Unknown country: show both links, no auto-redirect, no bias.
     const html = pageShell(`
     <h1>Where to shop</h1>
-    <p>Shopping from the United States? <a href="${withUtm(ETSY, utmSource)}">Shop on Etsy</a></p>
-    <p>Shopping from anywhere else? <a href="${withUtm(PAYHIP, utmSource)}">Shop on Payhip</a></p>
+    <p>Shopping from the United States or Australia? <a href="${withUtm(ETSY, utmSource)}">Shop on Etsy</a></p>
+    <p>Anywhere else? <a href="${withUtm(PAYHIP, utmSource)}">Shop on Payhip</a></p>
     `, null);
     return new Response(html, {
       status: 200,
@@ -67,14 +68,19 @@ export async function onRequest(context) {
     });
   }
 
-  const isUS = rawCountry === 'US';
-  const primary = withUtm(isUS ? ETSY : PAYHIP, utmSource);
-  const other = withUtm(isUS ? PAYHIP : ETSY, utmSource);
-  const otherLabel = isUS ? 'Payhip' : 'Etsy';
+  const isAU = rawCountry === 'AU';
+  const toEtsy = rawCountry === 'US' || isAU;
+  const primary = withUtm(toEtsy ? ETSY : PAYHIP, utmSource);
+  const other = withUtm(toEtsy ? PAYHIP : ETSY, utmSource);
+  const otherLabel = toEtsy ? 'Payhip' : 'Etsy';
+  // AU is Etsy-only: no Payhip alternative offered.
+  const secondary = isAU
+    ? ''
+    : `<p class="secondary">Not the right store? <a href="${other}">Shop on ${otherLabel} instead</a></p>`;
 
   const html = pageShell(`
     <p>Taking you to the right place to shop.</p>
-    <p class="secondary">Not the right store? <a href="${other}">Shop on ${otherLabel} instead</a></p>
+    ${secondary}
     `, primary);
 
   return new Response(html, {
