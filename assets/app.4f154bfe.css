@@ -34,7 +34,8 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing
 .hero__photo{grid-column:6/13;grid-row:1;position:relative;z-index:2;margin:0;
  -webkit-mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent),linear-gradient(to bottom,transparent,#000 24px,#000 calc(100% - 24px),transparent);
  -webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,#000 24px,#000 calc(100% - 24px),transparent),linear-gradient(to bottom,transparent,#000 24px,#000 calc(100% - 24px),transparent);mask-composite:intersect}
-.hero__leaf{position:absolute;z-index:1;width:80%;max-width:none;left:36%;top:-64px;pointer-events:none;animation:leafin .6s ease-out both}
+.hero__leaf{position:absolute;z-index:1;width:80%;max-width:none;left:36%;top:-104px;pointer-events:none;animation:leafin .6s ease-out both}
+.hero__leaf img{display:block;width:100%;height:auto}
 @keyframes leafin{from{opacity:0}to{opacity:1}}
 @media (prefers-reduced-motion:reduce){.hero__leaf{animation:none}}
 .actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px}
@@ -113,7 +114,7 @@ h1,h2,h3{font-family:var(--serif);font-weight:600;line-height:1.1;letter-spacing
  .hero{padding:0 0 40px}
  .hero .wrap{grid-template-columns:1fr;gap:0;padding:0}
  .hero__photo{grid-column:1;grid-row:1;-webkit-mask-image:none;mask-image:none}
- .hero__leaf{width:88%;left:42%;top:44vw;z-index:3}
+ .hero__leaf{display:none}
  .hero__sheet{grid-column:1;grid-row:2;margin:-8px var(--gut) 0;padding:28px 22px 26px;z-index:4}
  .hero__sheet h1{font-size:38px}
  .hero__sub{font-size:18px}
