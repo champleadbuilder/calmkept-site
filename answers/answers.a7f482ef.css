@@ -1,0 +1,5 @@
+/* answer hub: article measure + rhythm, layered on /style.css tokens */
+.answer{padding:3rem 0 4rem}.answer .container{max-width:42rem}
+.answer h1{margin-bottom:1.25rem}.answer h2{font-family:var(--font-display);font-weight:500;font-size:1.5rem;margin:2rem 0 .75rem;color:var(--charcoal)}
+.answer p,.answer li{color:var(--charcoal-muted);line-height:1.7;max-width:68ch}.answer ul{padding-left:1.2rem}.answer li{margin:.35rem 0}
+.answer a{color:var(--sage-dark)}.answer em{color:var(--charcoal-quiet)}.answer-list{list-style:none;padding:0}.answer-list li{margin:0 0 1.25rem}
