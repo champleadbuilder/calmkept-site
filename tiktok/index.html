@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="referrer" content="no-referrer">
+  <title>Connect TikTok — Calmkept</title>
+  <meta name="theme-color" content="#F5EDDB">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/favicon-180.png">
+
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/fonts/cormorant-garamond-italic-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container container--wide">
+      <a href="/" class="wordmark" aria-label="Calmkept home">Calmkept</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="https://calmkept.etsy.com" rel="noopener">Shop</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/refunds">Refunds</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <article class="privacy-body">
+      <div class="container">
+
+        <h1>Connect your TikTok account</h1>
+        <p>Calmkept Publisher posts Calmkept's own videos to Calmkept's own TikTok account. To connect, TikTok will ask you to sign in and approve access.</p>
+        <p>We ask for two permissions: your basic account details, so you can see which account will post, and permission to publish videos you choose. Nothing is posted until you press Post in the publisher.</p>
+        <p><a id="authorize" class="cta" href="#" aria-disabled="true">Authorize with TikTok</a></p>
+        <p id="tt-note">Open this page from the Calmkept publisher to connect.</p>
+        <p>You can remove access any time in your TikTok settings, where TikTok lists the apps connected to your account. Read how we handle TikTok data in our <a href="/privacy">privacy notice</a>.</p>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container container--wide">
+      <p class="footer-tagline">Calmkept &middot; printable preparedness for real families</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/refunds">Refunds</a>
+        <a href="mailto:care@calmkept.com">care@calmkept.com</a>
+        <a href="https://calmkept.etsy.com" rel="noopener">Etsy shop</a>
+        <a href="https://payhip.com/Calmkept" rel="noopener">Payhip shop</a>
+      </nav>
+      <p class="copyright">&copy; 2026 Calmkept, the trading name of Luis Beauchamp, sole trader &middot; Norwalk, CT, USA &middot; <a href="mailto:care@calmkept.com">care@calmkept.com</a></p>
+    </div>
+  </footer>
+
+
+  <script>
+  (function () {
+    var s = new URLSearchParams(location.search).get("state") || "";
+    if (!/^[A-Za-z0-9_-]{16,128}$/.test(s)) return;
+    var u = new URL("https://www.tiktok.com/v2/auth/authorize/");
+    u.searchParams.set("client_key", "sbawtzo7t83ju8lrx8");
+    u.searchParams.set("scope", "user.info.basic,video.publish");
+    u.searchParams.set("response_type", "code");
+    u.searchParams.set("redirect_uri", "https://calmkept.com/tiktok/callback");
+    u.searchParams.set("state", s);
+    var a = document.getElementById("authorize");
+    a.href = u.toString();
+    a.setAttribute("aria-disabled", "false");
+    document.getElementById("tt-note").hidden = true;
+  })();
+  </script>
+</body>
+</html>
