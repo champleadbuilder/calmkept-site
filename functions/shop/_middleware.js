@@ -127,9 +127,9 @@ function applyHubPassThrough(res, fromValue) {
 //      with `pintrk('set', { opt_out_type: 'LDP', st: '<sha256>', country: '<sha256>' })`
 //      run before any event code; st/country are SHA-256 hashes of the two-letter
 //      state/country code in UPPER case (the docs' examples: CA → 4b650e5c…,
-//      US → 9b202ecb…; a lower-case hash matches neither), and the docs say to "leave st and country blank...
-//      if you
-//      don't have the user's location information." We gate this whole script to
+//      US → 9b202ecb…; a lower-case hash matches neither). The docs say to "leave
+//      st and country blank... if you don't have the user's location information."
+//      We gate this whole script to
 //      cf-ipcountry === 'US' already, so country is always "US"; we have no
 //      per-visitor state, so st is omitted. PINTEREST_LDP_COUNTRY_HASH is sha256("US").
 //   5. Ships only in the same deploy as Edith's gate-4b privacy text, never before.
