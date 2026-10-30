@@ -236,5 +236,19 @@
   "url": "https://calmkept.com/shop/property-info-access-card",
   "cover": "/shop/img/property-info-access-card-1.jpg",
   "words": 104
+ },
+ {
+  "slug": "adhd-daily-planner",
+  "name": "ADHD-Friendly Daily Planner",
+  "kind": "planner",
+  "etsy_listing_id": 4606577231,
+  "etsy_url": "https://www.etsy.com/listing/4606577231/",
+  "payhip_url": "https://payhip.com/b/KnFYb",
+  "ca_url": null,
+  "etsy_price": "6.99",
+  "currency": "USD",
+  "url": "https://calmkept.com/shop/adhd-daily-planner",
+  "cover": "/shop/img/adhd-planner-1.jpg",
+  "words": 103
  }
 ]
