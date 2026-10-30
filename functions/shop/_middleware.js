@@ -4,14 +4,11 @@
  * /shop hub's two store-wide links (Rhodey's source read, ledger #102), and the
  * Pinterest Ads conversion tag (Luis's Pinterest Ads launch, ledger #105).
  *
- * --- SALE CONFIG: edit this block only to change or end the sale manually ---
- * `end` is also checked every request, so the banner disappears on its own after that
- * instant with no code change needed.
+ * SALE config lives in functions/_middleware.js (one source for the site-wide banner
+ * and the per-card sale line here). SALE.active (per-card price) stays HELD false until
+ * the Etsy and Payhip sale rounding is read off live listings and Edith passes it.
  */
-// HELD: Edith's 2026-10-30 17:00 ET gate (gate 4a) — the rounding below is unverified
-// against a live Etsy listing page and must be gated separately before this goes live.
-// Flip to true only after her sale-line PASS lands in inter-agent-log.md.
-const SALE = { active: false, percent: 50, end: '2026-11-08T23:59:59-05:00', label: '50% off through Nov 8' };
+import { SALE, saleOpen } from '../_middleware.js';
 
 // Etsy price per slug, USD. Source: shop/products.json (kept in sync by hand — the
 // sale math needs the real listing price, not a guess).
@@ -49,7 +46,7 @@ function salePrice(base) {
 }
 
 function saleLive() {
-  return SALE.active && Date.now() < new Date(SALE.end).getTime();
+  return SALE.active && saleOpen();
 }
 
 function applySaleRewrite(res, path) {
@@ -66,7 +63,7 @@ function applySaleRewrite(res, path) {
     })
     .on('span.shop-card__price', {
       element(el) {
-        if (!currentSlug || !(currentSlug in PRICES)) return;
+        if (!currentSlug || !(currentSlug in PRICES) || SALE.excludeSlugs.includes(currentSlug)) return;
         const base = PRICES[currentSlug];
         const sale = salePrice(base);
         el.setInnerContent(`<del>$${fmt(base)}</del> $${fmt(sale)} on Etsy · ${SALE.label}`, { html: true });
@@ -74,7 +71,7 @@ function applySaleRewrite(res, path) {
     })
     .on('a[data-store="etsy"] span.buy__price', {
       element(el) {
-        if (!currentSlug || !(currentSlug in PRICES)) return;
+        if (!currentSlug || !(currentSlug in PRICES) || SALE.excludeSlugs.includes(currentSlug)) return;
         const base = PRICES[currentSlug];
         const sale = salePrice(base);
         el.setInnerContent(`<del>$${fmt(base)}</del> $${fmt(sale)} USD · ${SALE.label}`, { html: true });
