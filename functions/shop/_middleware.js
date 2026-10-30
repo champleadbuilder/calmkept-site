@@ -129,21 +129,24 @@ function applyHubPassThrough(res, fromValue) {
 //      state/country code in UPPER case (the docs' examples: CA → 4b650e5c…,
 //      US → 9b202ecb…; a lower-case hash matches neither). The docs say to "leave
 //      st and country blank... if you don't have the user's location information."
-//      We gate this whole script to
-//      cf-ipcountry === 'US' already, so country is always "US"; we have no
-//      per-visitor state, so st is omitted. PINTEREST_LDP_COUNTRY_HASH is sha256("US").
+//      We gate this whole script to cf-ipcountry === 'US', so country is always "US"
+//      (PINTEREST_LDP_COUNTRY_HASH = sha256("US")). The docs also say LDP has no effect
+//      outside 17 named states and the advertiser identifies the state, so per Edith
+//      (17:3x ET) st = sha256 of request.cf.regionCode (upper-case 2-letter state; a
+//      preview-deploy echo on 2026-10-30 returned regionCode "CT"), omitted when
+//      regionCode is absent or not 2 letters.
 //   5. Ships only in the same deploy as Edith's gate-4b privacy text, never before.
 const PINTEREST_TAG_ID = 'PENDING_TAG_ID';
 const PINTEREST_LDP_COUNTRY_HASH = '9b202ecbc6d45c6d8901d989a918878397a3eb9d00e8f48022fc051b19d21a1d';
 
-function pinterestTagScript(tagId) {
+function pinterestTagScript(tagId, stHash) {
   return `<script>
 !function(e){if(!window.pintrk){window.pintrk=function(){window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
 n=window.pintrk;n.queue=[],n.version="3.0";var
 t=document.createElement("script");t.async=!0,t.src=e;var
 r=document.getElementsByTagName("script")[0];r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
 pintrk('load', '${tagId}', {});
-pintrk('set', { opt_out_type: 'LDP', country: '${PINTEREST_LDP_COUNTRY_HASH}' });
+pintrk('set', { opt_out_type: 'LDP', ${stHash ? `st: '${stHash}', ` : ''}country: '${PINTEREST_LDP_COUNTRY_HASH}' });
 pintrk('page');
 pintrk('track', 'pagevisit');
 document.addEventListener('click', function (ev) {
@@ -159,8 +162,14 @@ document.addEventListener('click', function (ev) {
 <noscript><img height="1" width="1" style="display:none" alt="" src="https://ct.pinterest.com/v3/?tid=${tagId}&event=init&noscript=1" /></noscript>`;
 }
 
-function applyPinterestTag(res) {
-  const script = pinterestTagScript(PINTEREST_TAG_ID);
+async function sha256Hex(text) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text));
+  return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+async function applyPinterestTag(res, regionCode) {
+  const st = /^[A-Za-z]{2}$/.test(regionCode || '') ? await sha256Hex(regionCode.toUpperCase()) : null;
+  const script = pinterestTagScript(PINTEREST_TAG_ID, st);
   return new HTMLRewriter()
     .on('head', {
       element(el) {
@@ -190,7 +199,7 @@ export async function onRequest(context) {
       res = applyHubPassThrough(res, from);
     }
     if (c === 'US' && PINTEREST_TAG_ID !== 'PENDING_TAG_ID') {
-      res = applyPinterestTag(res);
+      res = await applyPinterestTag(res, context.request.cf?.regionCode);
     }
   }
 
