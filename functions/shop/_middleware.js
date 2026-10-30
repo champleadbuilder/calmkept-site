@@ -125,14 +125,16 @@ function applyHubPassThrough(res, fromValue) {
 //      developer docs (https://developers.pinterest.com/docs/track-conversions/
 //      use-limited-data-processing-flag/, read 2026-10-30), the JS Tag enables it
 //      with `pintrk('set', { opt_out_type: 'LDP', st: '<sha256>', country: '<sha256>' })`
-//      run before any event code; st/country are SHA-256 hashes of the lower-case
-//      state/country code, and the docs say to "leave st and country blank... if you
+//      run before any event code; st/country are SHA-256 hashes of the two-letter
+//      state/country code in UPPER case (the docs' examples: CA → 4b650e5c…,
+//      US → 9b202ecb…; a lower-case hash matches neither), and the docs say to "leave st and country blank...
+//      if you
 //      don't have the user's location information." We gate this whole script to
-//      cf-ipcountry === 'US' already, so country is always "us"; we have no
-//      per-visitor state, so st is omitted. PINTEREST_LDP_COUNTRY_HASH is sha256("us").
+//      cf-ipcountry === 'US' already, so country is always "US"; we have no
+//      per-visitor state, so st is omitted. PINTEREST_LDP_COUNTRY_HASH is sha256("US").
 //   5. Ships only in the same deploy as Edith's gate-4b privacy text, never before.
 const PINTEREST_TAG_ID = 'PENDING_TAG_ID';
-const PINTEREST_LDP_COUNTRY_HASH = '79adb2a2fce5c6ba215fe5f27f532d4e7edbac4b6a5e09e1ef3a08084a904621';
+const PINTEREST_LDP_COUNTRY_HASH = '9b202ecbc6d45c6d8901d989a918878397a3eb9d00e8f48022fc051b19d21a1d';
 
 function pinterestTagScript(tagId) {
   return `<script>
