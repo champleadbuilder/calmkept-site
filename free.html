@@ -43,20 +43,21 @@
     </section>
 
     <!-- ===== Sign-up ===== -->
-    <!-- STAGED, NOT WIRED: this form needs the real MailerLite embed action/field names for
-         the existing "Emergency Starter Checklist" group (ID 189210310575391833; group and its
-         draft welcome automation already exist, per
-         calmkept/lead-magnet-emergency-starter-checklist-scope.md). Get the live embed code
-         from that group's MailerLite signup-form settings (Forms > Embedded forms) and drop its
-         <form action=...> and hidden fields in below, replacing this placeholder action.
-         Do not point this at the general subscribe.calmkept.com link — that is a different
-         group and would never trigger this checklist's welcome sequence. -->
+    <!-- Wired from the public emergency-starter.subscribepage.io landing page (fetched
+         2026-10-31, read-only, no submit). That page's own HTML carries no group identifier,
+         so whether its MailerLite account_id=2401900 / page_id=189210422024341107 subscribes
+         into group 189210310575391833 (the "Emergency Starter Checklist" group referenced in
+         calmkept/lead-magnet-emergency-starter-checklist-scope.md) is UNCONFIRMED — flagged to
+         Cowork in cowork-attention.md. _token is required by MailerLite's form handler but has
+         no stable value on this static page; it is left empty here as it appeared on the
+         source page, same as the page's own unauthenticated form. -->
     <section class="products" aria-labelledby="signup-heading">
       <div class="container">
         <h2 id="signup-heading" class="section-heading">Get the checklist</h2>
-        <form action="[NEEDS: MailerLite embed form action URL for group 189210310575391833]" method="post">
+        <form action="https://dashboard.mailerlite.com/public/2401900/pages/189210422024341107/subscribe?signature=425b608e7923ffaf320b6ef6cfb7fa0293bc641cfc928847d9221a7420482923" method="post">
+          <input type="hidden" name="_token" value="">
           <label class="grid gap-1" for="free-email">Email</label>
-          <input id="free-email" name="fields[email]" type="email" required placeholder="you@example.com">
+          <input id="free-email" name="fields.email" type="email" required placeholder="you@example.com">
           <button class="product-card__cta" type="submit">Send me the checklist</button>
         </form>
         <p class="products__sub"><small>One email with your checklist, then a few short emails over the next couple of weeks, including a soft mention of our printable binders. Unsubscribe anytime. <a href="/privacy">Privacy policy</a></small></p>
