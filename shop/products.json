@@ -250,5 +250,19 @@
   "url": "https://calmkept.com/shop/adhd-daily-planner",
   "cover": "/shop/img/adhd-planner-1.jpg",
   "words": 103
+ },
+ {
+  "slug": "home-inventory-warranty-binder",
+  "name": "Home Inventory & Warranty Binder",
+  "kind": "binder",
+  "etsy_listing_id": 4607277929,
+  "etsy_url": "https://www.etsy.com/listing/4607277929/",
+  "payhip_url": null,
+  "ca_url": null,
+  "etsy_price": "6.99",
+  "currency": "USD",
+  "url": "https://calmkept.com/shop/home-inventory-warranty-binder",
+  "cover": null,
+  "words": 60
  }
 ]
