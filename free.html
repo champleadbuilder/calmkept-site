@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Free Emergency Starter Checklist — Calmkept</title>
+  <meta name="description" content="Five small steps to start with, free: a printable Emergency Starter Checklist from Calmkept, delivered by email.">
+  <meta name="theme-color" content="#F5EDDB">
+  <meta name="robots" content="noindex">
+
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="/favicon-180.png">
+
+  <link rel="preload" href="fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/cormorant-garamond-italic-500.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="container container--wide">
+      <a href="/" class="wordmark" aria-label="Calmkept home">Calmkept</a>
+      <nav class="site-nav" aria-label="Primary">
+        <a href="/shop">Shop</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/refunds">Refunds</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ===== Hero / offer ===== -->
+    <section class="hero" aria-labelledby="hero-headline">
+      <div class="container hero__inner">
+        <h1 id="hero-headline">Five small steps to start with, free</h1>
+        <p>The Emergency Starter Checklist: a conversation to start, five documents to find, a one-page call list to write, a photo of your medications, and a short check-in once a week.</p>
+      </div>
+    </section>
+
+    <!-- ===== Sign-up ===== -->
+    <!-- Links out to the hosted emergency-starter.subscribepage.io page instead of a static
+         form: that page's own JS serializes the email into JSON, attaches an invisible-reCAPTCHA
+         token, and posts it as application/json, which a plain HTML form here can't reproduce
+         (a static urlencoded submit would hit MailerLite's raw API response, not its success
+         state). Switches to MailerLite's embedded form for group 189210310575391833 once Cowork
+         supplies the embed code. -->
+    <section class="products" aria-labelledby="signup-heading">
+      <div class="container">
+        <h2 id="signup-heading" class="section-heading">Get the checklist</h2>
+        <a class="product-card__cta" href="https://emergency-starter.subscribepage.io">Send me the checklist</a>
+        <p class="products__sub"><small>One welcome email with your checklist, then a few short emails with tips and news from Calmkept, including our products. Unsubscribe anytime. <a href="/privacy">Privacy policy</a></small></p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container container--wide">
+      <p class="footer-tagline">Calmkept &middot; printable preparedness for real families</p>
+      <nav class="footer-nav" aria-label="Footer">
+        <a href="/privacy">Privacy</a>
+        <a href="/terms">Terms</a>
+        <a href="/refunds">Refunds</a>
+        <a href="mailto:care@calmkept.com">care@calmkept.com</a>
+        <a href="https://calmkept.etsy.com" rel="noopener">Etsy shop</a>
+        <a href="https://payhip.com/Calmkept" rel="noopener">Payhip shop</a>
+      </nav>
+      <p class="copyright">&copy; 2026 Calmkept, the trading name of Luis Beauchamp, sole trader &middot; 190 E Rocks Rd, Norwalk, CT 06851, USA &middot; <a href="mailto:care@calmkept.com">care@calmkept.com</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
