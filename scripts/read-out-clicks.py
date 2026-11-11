@@ -2,7 +2,8 @@
 
 Prints clicks per product and per store for a date range, read from the
 Workers KV namespace the out-click Pages Function (functions/api/out-click.js)
-writes to under keys "click:<YYYY-MM-DD>:<store>:<pid>".
+writes to under keys "click:<YYYY-MM-DD>:<store>:<pid>:<from>". Rows tagged
+from=deploytest are counted separately and left out of the real totals.
 
 Needs a Cloudflare API token scoped for Workers KV Storage:Read (the current
 Calmkept Automation vault token is Pages:Edit + DNS/Zone:Edit only and cannot
@@ -77,12 +78,16 @@ def main():
     keys = list_keys(account_id, namespace_id, token)
     by_product = {}
     by_store = {}
+    deploytest_total = 0
     for key in keys:
-        # click:<date>:<store>:<pid>
-        _, day, store, pid = key.split(":", 3)
+        # click:<date>:<store>:<pid>:<from>
+        _, day, store, pid, from_tag = key.split(":", 4)
         if not (args.date_from <= day <= args.date_to):
             continue
         n = int(get_value(account_id, namespace_id, key, token) or "0")
+        if from_tag == "deploytest":
+            deploytest_total += n
+            continue
         by_product[pid] = by_product.get(pid, 0) + n
         by_store[store] = by_store.get(store, 0) + n
 
@@ -93,6 +98,7 @@ def main():
     print("\nBy store:")
     for store, n in sorted(by_store.items(), key=lambda x: -x[1]):
         print(f"  {store}: {n}")
+    print(f"\ndeploytest (left out of the totals above): {deploytest_total}")
 
 
 if __name__ == "__main__":
