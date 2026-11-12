@@ -10,13 +10,26 @@ Calmkept Automation vault token is Pages:Edit + DNS/Zone:Edit only and cannot
 read KV -- see W2-U2-2.done). Until that token exists, this script is staged
 and syntax-checked only, not run against a live namespace.
 
+Both namespaces now exist (Cowork, dashboard, 2026-11-11 11:02 ET):
+  calmkept-out-clicks          (Production) d3a85ac915fb4265a9d82d68608cf5c1
+  calmkept-out-clicks-preview  (Preview)    00a2b9ed6fea4bda9afab028f88f7b5d
+Point KV_NAMESPACE_ID at the preview one to read test clicks made through a
+preview deploy URL without touching production counts.
+
 Usage:
   python3 scripts/read-out-clicks.py --from 2026-11-11 --to 2026-11-18
 
 Env:
   CLOUDFLARE_API_TOKEN   required, KV Storage:Read scope
   CLOUDFLARE_ACCOUNT_ID  default 90d0f7e0c9ca450e4bc26537aa351542
-  KV_NAMESPACE_ID        required once the OUT_CLICKS namespace is created
+  KV_NAMESPACE_ID        the namespace to read, e.g. 00a2b9ed6fea4bda9afab028f88f7b5d
+                         for preview or d3a85ac915fb4265a9d82d68608cf5c1 for production
+
+Fallback, no token with KV scope: open the Cloudflare dashboard -> Workers &
+Pages -> KV -> the namespace above -> its keys, and read click:<date>:<store>:
+<pid>:<from> and its value by hand. That is condition (a)'s accepted
+substitute for this one command (Edith, opus-gate-night-2026-11-11.md condition
+(a) ruling) when no KV-scoped token is available.
 """
 import argparse
 import json

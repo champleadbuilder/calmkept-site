@@ -5,6 +5,16 @@
 // binding (the binding is set in the Cloudflare dashboard). The console.log line
 // stays as a live-tail fallback and is kept even once the binding is wired -- it
 // costs nothing and some nights only a tail is open.
+//
+// N1112-U-5 (Edith's opus-gate-night-2026-11-11.md condition (e)): store, pid and
+// from go straight into the KV key, so an unchecked value could stuff anything
+// (an email address, say) into it. tagOk() keeps only the shapes the page code
+// ever sends and replaces anything else with "other" before it reaches the key.
+const TAG_RE = /^[a-z0-9_-]{1,32}$/;
+function tagOk(v) {
+  return typeof v === "string" && TAG_RE.test(v) ? v : "other";
+}
+
 export async function onRequestPost(context) {
   let body = {};
   try {
@@ -15,10 +25,10 @@ export async function onRequestPost(context) {
   }
   const rec = {
     t: new Date().toISOString(),
-    store: body.store || "",
-    pid: body.pid || "",
+    store: tagOk(body.store),
+    pid: tagOk(body.pid),
     path: body.path || "",
-    from: body.from || "",
+    from: tagOk(body.from),
   };
   console.log("OUT_CLICK " + JSON.stringify(rec));
 
