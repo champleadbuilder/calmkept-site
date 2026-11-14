@@ -21,7 +21,7 @@ const PRICES = {
   'new-homeowner-binder': 8.99,
   'just-in-case-binder': 14.99,
   'end-of-life-planner': 14.99,
-  'property-binder': 17.40,
+  'property-binder': 14.99,
   'emergency-contact-card': 2.99,
   'medical-id-medication-card': 2.99,
   'caregiver-medication-card': 2.99,
