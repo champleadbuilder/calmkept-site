@@ -460,5 +460,33 @@
   "url": "https://calmkept.com/shop/au-new-homeowner-binder",
   "cover": null,
   "words": null
+ },
+ {
+  "slug": "wedding-planning-binder",
+  "name": "Wedding Planning Binder",
+  "kind": "binder",
+  "etsy_listing_id": 4616843821,
+  "etsy_url": "https://www.etsy.com/listing/4616843821/",
+  "payhip_url": "https://payhip.com/b/75tuA",
+  "ca_url": null,
+  "etsy_price": "24.99",
+  "currency": "USD",
+  "url": "https://calmkept.com/shop/wedding-planning-binder",
+  "cover": "/shop/img/wedding-planning-binder-1.png",
+  "words": 105
+ },
+ {
+  "slug": "pet-care-binder",
+  "name": "Pet Care Binder",
+  "kind": "binder",
+  "etsy_listing_id": 4616843983,
+  "etsy_url": "https://www.etsy.com/listing/4616843983/",
+  "payhip_url": "https://payhip.com/b/LMBok",
+  "ca_url": null,
+  "etsy_price": "14.99",
+  "currency": "USD",
+  "url": "https://calmkept.com/shop/pet-care-binder",
+  "cover": "/shop/img/pet-care-binder-1.png",
+  "words": 104
  }
 ]
