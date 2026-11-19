@@ -1,43 +1,39 @@
 /**
- * Site-wide sale banner (Luis 17:06 via Cowork 17:35, Jarvis WAKE 13): one line at the
- * top of every HTML page — home, /shop hub, every product page, legal pages.
- * Not on /tiktok/* (TikTok app authorize/callback pages, not shop pages).
+ * Site-wide sale banner. One line at the top of every HTML page — home, /shop hub,
+ * every product page, legal pages. Not on /tiktok/* (TikTok app authorize/callback
+ * pages, not shop pages).
  *
  * --- SALE CONFIG: edit this block only to change or end the sale manually ---
  * Single source for the sale; functions/shop/_middleware.js imports it.
+ * UPDATED 2026-11-19 (N1119-U-BFSITE, LUIS RULING 34, Edith PASS of N1119-P-BFLINE
+ * conditions 1-3): Black Friday replaces the Oct 50%-off sale. Binders/planners are
+ * now a flat USD 5.99, cards USD 2.49, not a percent — `percent`/`label` stay only
+ * for the dormant per-card strikethrough path in functions/shop/_middleware.js
+ * (SALE.active stays false, so that path does not run).
  * - `banner`: the site-wide banner. Set false to end it early (one edit).
- * - `active`: the per-card strikethrough sale price on /shop pages. HELD false until
- *   Etsy's and Payhip's sale rounding is read off a live listing (Edith gate 4a, cond. 2;
- *   Jarvis WAKE 13 item 2). Payhip is 50% off too now, so the old "Payhip at full price"
- *   card assumption is void; the banner carries the message until then.
- * - `end` is checked on every request, so both hide themselves after 8 Nov 23:59 ET.
- * - The banner carries no discount code (Cowork ruling, Jarvis 17:31 ET relay); codes
- *   stay the stores' own targeted offers and are never published here.
+ * - `active`: the per-card strikethrough sale price on /shop pages. Stays false —
+ *   every shop/*.html and shop.html price was edited directly to the sale price
+ *   instead (N1119-U-BFSITE), so the dormant percent-based overlay is not needed.
+ * - `end` is checked on every request, so the banner hides itself after the sale ends.
+ * - The banner carries no discount code; codes stay the stores' own targeted offers
+ *   and are never published here.
  */
 export const SALE = {
   active: false,
   banner: true,
   percent: 50,
-  end: '2026-11-08T23:59:59-05:00',
-  label: '50% off through Nov 8',
-  // Shop slugs NOT in the sale (per Cowork's report): the per-card sale price skips them,
-  // and their /shop/<slug> page gets no banner (Edith FIX). ADHD planner seeded until
-  // Luis rules.
-  excludeSlugs: ['adhd-daily-planner'],
+  end: '2026-11-30T23:59:59-05:00',
+  label: '5.99 (cards 2.49) through Nov 30',
+  // No slug is excluded from Ruling 34's Black Friday sale.
+  excludeSlugs: [],
 };
 
 export function saleOpen() {
   return Date.now() < new Date(SALE.end).getTime();
 }
 
-function endDay() {
-  // "Nov 8", read from SALE.end in Eastern time.
-  return new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', month: 'short', day: 'numeric' })
-    .format(new Date(SALE.end));
-}
-
 export function bannerText() {
-  return `${SALE.percent}% off every binder and card through ${endDay()}`;
+  return 'Black Friday sale: binders and planners are $5.99 and cards are $2.49 until Monday 30 November, 11:59 pm ET.';
 }
 
 function bannerHtml() {
