@@ -33,7 +33,7 @@ export function saleOpen() {
 }
 
 export function bannerText() {
-  return 'Black Friday sale: binders and planners are $5.99 and cards are $2.49 until Monday 30 November, 11:59 pm ET.';
+  return 'Black Friday sale: binders, planners and journals are $5.99, and cards are $1.49 or $2.49, until Monday 30 November, 11:59 pm ET.';
 }
 
 function bannerHtml() {
